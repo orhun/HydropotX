@@ -7,40 +7,38 @@
  *
  */
 
-#define PH_SENSOR 0
-unsigned long int phAverage;
-float b;
-int buf[10], temp;
+#include "DFRobot_PH.h"
+#include <EEPROM.h>
+
+#define PH_PIN A0
+float voltage, phValue, temperature;
+DFRobot_PH ph;
 
 void setup() {
     Serial.begin(9600);  
     Serial.println("START");
     pinMode(LED_BUILTIN, OUTPUT);
+    ph.begin();
 }
 
 void loop() {
-    for(int i = 0; i < 10; i++) {
-        buf[i] = analogRead(PH_SENSOR);
-        delay(10);
+    static unsigned long timepoint = millis();
+    if(millis()-timepoint>1000U){
+        timepoint = millis();
+        temperature = readTemperature();
+        voltage = analogRead(PH_PIN)/1024.0*5000;
+        phValue = ph.readPH(voltage, temperature);
+        Serial.print("temperature:");
+        Serial.print(temperature,1);
+        Serial.print("^C  pH:");
+        Serial.println(phValue,2);
     }
-    for(int i = 0; i < 9; i++) {
-        for(int j = i + 1; j < 10; j++) {
-            if(buf[i]>buf[j]){
-                temp = buf[i];
-                buf[i] = buf[j];
-                buf[j] = temp;
-            }
-        }
-    }
-    phAverage = 0;
-    for(int i = 2; i < 8; i++)
-        phAverage += buf[i];
-    float phValue = (float) phAverage * 5.0 / 1024 / 6;
-    phValue = 3.5 * phValue;
-    Serial.print("    pH:");
-    Serial.print(phValue, 2);
-    Serial.println(" ");
+    ph.calibration(voltage, temperature);
     digitalWrite(LED_BUILTIN, HIGH);
     delay(800);
     digitalWrite(LED_BUILTIN, LOW);
+}
+
+float readTemperature() {
+  return 25.0;
 }
