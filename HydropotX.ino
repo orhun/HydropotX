@@ -7,6 +7,11 @@
  *
  */
 
+#define PH_SENSOR 0
+unsigned long int phAverage;
+float b;
+int buf[10], temp;
+
 void setup() {
     Serial.begin(9600);  
     Serial.println("START");
@@ -14,10 +19,28 @@ void setup() {
 }
 
 void loop() {
-    Serial.println("HIGH");
+    for(int i = 0; i < 10; i++) {
+        buf[i] = analogRead(PH_SENSOR);
+        delay(10);
+    }
+    for(int i = 0; i < 9; i++) {
+        for(int j = i + 1; j < 10; j++) {
+            if(buf[i]>buf[j]){
+                temp = buf[i];
+                buf[i] = buf[j];
+                buf[j] = temp;
+            }
+        }
+    }
+    phAverage = 0;
+    for(int i = 2; i < 8; i++)
+        phAverage += buf[i];
+    float phValue = (float) phAverage * 5.0 / 1024 / 6;
+    phValue = 3.5 * phValue;
+    Serial.print("    pH:");
+    Serial.print(phValue, 2);
+    Serial.println(" ");
     digitalWrite(LED_BUILTIN, HIGH);
-    delay(1000);
-    Serial.println("LOW");
+    delay(800);
     digitalWrite(LED_BUILTIN, LOW);
-    delay(1000);
 }
