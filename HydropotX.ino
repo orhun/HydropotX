@@ -26,7 +26,6 @@ DFRobot_PH ph;
 void setup() {
     Serial.begin(9600);  
     Serial.println("START");
-    pinMode(LED_BUILTIN, OUTPUT);
     ph.begin();
 }
 
@@ -43,9 +42,6 @@ void loop() {
         Serial.println(phValue, 2);
     }
     ph.calibration(voltage, temperature);
-    digitalWrite(LED_BUILTIN, HIGH);
-    delay(800);
-    digitalWrite(LED_BUILTIN, LOW);
 }
 
 float readTemperature() {
