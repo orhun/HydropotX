@@ -32,10 +32,10 @@ void setup() {
 
 void loop() {
     static unsigned long timepoint = millis();
-    if(millis()-timepoint>1000U){
+    if(millis()-timepoint>1000U) {
         timepoint = millis();
         temperature = readTemperature();
-        voltage = analogRead(PH_PIN)/1024.0*5000;
+        voltage = analogRead(PH_PIN) / 1024.0 * 5000;
         phValue = ph.readPH(voltage, temperature) * CONST_M + CONST_B;
         Serial.print("Temperature: ");
         Serial.print(temperature, 1);
@@ -49,5 +49,5 @@ void loop() {
 }
 
 float readTemperature() {
-  return 25.0;
+    return 25.0;
 }
