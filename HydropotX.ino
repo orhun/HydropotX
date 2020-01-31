@@ -36,12 +36,11 @@ void loop() {
         timepoint = millis();
         temperature = readTemperature();
         voltage = analogRead(PH_PIN)/1024.0*5000;
-        phValue = ph.readPH(voltage, temperature);
-        float y = phValue * CONST_M + CONST_B;
+        phValue = ph.readPH(voltage, temperature) * CONST_M + CONST_B;
         Serial.print("Temperature: ");
         Serial.print(temperature, 1);
         Serial.print(", pH: ");
-        Serial.println(y, 2);
+        Serial.println(phValue, 2);
     }
     ph.calibration(voltage, temperature);
     digitalWrite(LED_BUILTIN, HIGH);
