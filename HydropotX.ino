@@ -19,7 +19,7 @@
 #include <OneWire.h>
 #include <DallasTemperature.h>
 
-#define PH_PIN A0
+#define PH_PIN A2
 #define PH_CONST_M -0.28 /* m = (y2 - y1) / (x2 - x1) */
 #define PH_CONST_B 8.3   /* b = y - mx */
 #define MOTOR1_PIN 2
@@ -42,17 +42,17 @@
 #define TEMP_GND_PIN 9
 
 typedef struct {
-    float temp;
     float ec;
     float rc;
+    float ph;
     float ppm;
+    float temp;
 } SensorValues;
 
 static OneWire oneWire(TEMP_DATA_PIN);
 static DallasTemperature tempSensor(&oneWire);
 static SensorValues sensorValues;
 
-float voltage, phValue;
 DFRobot_PH phSensor;
 HCMotor HCMotor;
 
@@ -78,18 +78,6 @@ void setup() {
 }
 
 void loop() {
-    /*static unsigned long timepoint = millis();
-    if(millis()-timepoint>1000U) {
-        timepoint = millis();
-        temperature = readTemperature();
-        voltage = analogRead(PH_PIN) / 1024.0 * 5000;
-        phValue = phSensor.readPH(voltage, temperature) * PH_CONST_M + PH_CONST_B;
-        Serial.print("Temperature: ");
-        Serial.print(temperature, 1);
-        Serial.print(", pH: ");
-        Serial.println(phValue, 2);
-    }
-    phSensor.calibration(voltage, temperature);*/
     /*HCMotor.OnTime(0, 30);
     delay(1000);
     HCMotor.OnTime(0, 0);
@@ -99,8 +87,8 @@ void loop() {
     HCMotor.OnTime(1, 0);
     delay(10000);*/
     sensorValues = readSensorValues();
-    Serial.print("Rc: ");
-    Serial.print(sensorValues.rc);
+    Serial.print("pH: ");
+    Serial.print(sensorValues.ph);
     Serial.print(" EC: ");
     Serial.print(sensorValues.ec);
     Serial.print(" Siemens ");
@@ -115,6 +103,10 @@ SensorValues readSensorValues() {
     /* Read the temperature value from sensor. */
     tempSensor.requestTemperatures();
     float temperature = tempSensor.getTempCByIndex(0);
+    /* Read the pH value from sensor. */
+    float voltage = analogRead(PH_PIN) / 1024.0 * 5000;
+    float phValue = phSensor.readPH(voltage, temperature) * PH_CONST_M + PH_CONST_B;
+    phSensor.calibration(voltage, temperature);
     /* Estimate the resistance of the liquid. */
     digitalWrite(EC_VCC, HIGH);
     float ecRaw = analogRead(EC_PIN);
@@ -125,5 +117,5 @@ SensorValues readSensorValues() {
     float rcValue = ((voltageDrop * (EC_R1 + EC_RA)) / (5 - voltageDrop)) - EC_RA;
     float ecValue  =  (1000 / (rcValue * EC_CONST)) / (1 + TEMP_COMP * (temperature - 25.0));
     float ppm = ecValue * PPM_CONV * 1000;
-    return {.temp = temperature, .ec = ecValue, .rc = rcValue, .ppm = ppm};
+    return {.ec = ecValue, .rc = rcValue, .ph = phValue, .ppm = ppm, .temp = temperature};
 }
