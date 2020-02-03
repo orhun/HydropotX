@@ -18,10 +18,10 @@
 #include <EEPROM.h>
 
 #define PH_PIN A0
+#define PH_CONST_M -0.28
+#define PH_CONST_B 8.3
 #define MOTOR1_PIN 2
 #define MOTOR2_PIN 3
-#define CONST_M -0.28
-#define CONST_B 8.3
 
 float voltage, phValue, temperature;
 DFRobot_PH ph;
@@ -44,7 +44,7 @@ void loop() {
         timepoint = millis();
         temperature = readTemperature();
         voltage = analogRead(PH_PIN) / 1024.0 * 5000;
-        phValue = ph.readPH(voltage, temperature) * CONST_M + CONST_B;
+        phValue = ph.readPH(voltage, temperature) * PH_CONST_M + PH_CONST_B;
         Serial.print("Temperature: ");
         Serial.print(temperature, 1);
         Serial.print(", pH: ");
