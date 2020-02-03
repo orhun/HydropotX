@@ -18,8 +18,8 @@
 #include <EEPROM.h>
 
 #define PH_PIN A0
-#define PH_CONST_M -0.28
-#define PH_CONST_B 8.3
+#define PH_CONST_M -0.28 /* m = (y2 - y1) / (x2 - x1) */
+#define PH_CONST_B 8.3   /* b = y - mx */
 #define MOTOR1_PIN 2
 #define MOTOR2_PIN 3
 
