@@ -24,13 +24,13 @@
 #define MOTOR2_PIN 3
 
 float voltage, phValue, temperature;
-DFRobot_PH ph;
+DFRobot_PH phSensor;
 HCMotor HCMotor;
 
 void setup() {
     Serial.begin(9600);  
     Serial.println("START");
-    ph.begin();
+    phSensor.begin();
     HCMotor.Init();
     HCMotor.attach(0, DCMOTOR, MOTOR1_PIN);
     HCMotor.attach(1, DCMOTOR, MOTOR2_PIN);
@@ -44,13 +44,13 @@ void loop() {
         timepoint = millis();
         temperature = readTemperature();
         voltage = analogRead(PH_PIN) / 1024.0 * 5000;
-        phValue = ph.readPH(voltage, temperature) * PH_CONST_M + PH_CONST_B;
+        phValue = phSensor.readPH(voltage, temperature) * PH_CONST_M + PH_CONST_B;
         Serial.print("Temperature: ");
         Serial.print(temperature, 1);
         Serial.print(", pH: ");
         Serial.println(phValue, 2);
     }
-    ph.calibration(voltage, temperature);
+    phSensor.calibration(voltage, temperature);
     /*HCMotor.OnTime(0, 30);
     delay(1000);
     HCMotor.OnTime(0, 0);
