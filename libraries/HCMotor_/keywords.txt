@@ -1,0 +1,8 @@
+HCMotor	KEYWORD1
+Init	KEYWORD2
+attach	KEYWORD2
+detach	KEYWORD2
+DutyCycle	KEYWORD2
+OnTime	KEYWORD2
+Direction	KEYWORD2
+Steps	KEYWORD2
