@@ -62,8 +62,6 @@ void setup() {
     pinMode(TEMP_GND_PIN, OUTPUT);
     pinMode(TEMP_VCC_PIN, OUTPUT);
     pinMode(EC_PIN, INPUT);
-    pinMode(EC_VCC, OUTPUT);
-    pinMode(EC_GND, OUTPUT);
     digitalWrite(TEMP_GND_PIN, LOW);
     digitalWrite(TEMP_VCC_PIN, HIGH);
     digitalWrite(EC_GND, LOW);
@@ -108,10 +106,14 @@ SensorValues readSensorValues() {
     float phValue = phSensor.readPH(voltage, temperature) * PH_CONST_M + PH_CONST_B;
     phSensor.calibration(voltage, temperature);
     /* Estimate the resistance of the liquid. */
+    pinMode(EC_VCC, OUTPUT);
+    pinMode(EC_GND, OUTPUT);
     digitalWrite(EC_VCC, HIGH);
     float ecRaw = analogRead(EC_PIN);
     ecRaw = analogRead(EC_PIN);
     digitalWrite(EC_VCC, LOW);
+    pinMode(EC_VCC, INPUT);
+    pinMode(EC_GND, INPUT);
     /* Convert raw values to EC and compensate for the temperature. */
     float voltageDrop = (5 * ecRaw) / 1024.0;
     float rcValue = ((voltageDrop * (EC_R1 + EC_RA)) / (5 - voltageDrop)) - EC_RA;
