@@ -27,6 +27,7 @@ static DallasTemperature tempSensor(&oneWire);
 static SensorValues sensorValues;
 static DFRobot_PH phSensor;
 static HCMotor HCMotor;
+static bool firstValueRead = false;
 
 void setup() {
     Serial.begin(9600);
@@ -57,13 +58,17 @@ void loop() {
     HCMotor.OnTime(1, 0);
     delay(10000);*/
     sensorValues = readSensorValues();
-    Serial.print("| ph: ");
-    Serial.print(sensorValues.ph);
-    Serial.print(" | EC: ");
-    Serial.print(sensorValues.ec);
-    Serial.print(" | T: ");
-    Serial.print(sensorValues.temp);
-    Serial.println(" |");
+    if (firstValueRead) {
+        Serial.print("| ph: ");
+        Serial.print(sensorValues.ph);
+        Serial.print(" | EC: ");
+        Serial.print(sensorValues.ec);
+        Serial.print(" | T: ");
+        Serial.print(sensorValues.temp);
+        Serial.println(" |");
+    } else {
+        firstValueRead = true;
+    }
     delay(5000);
 }
 
