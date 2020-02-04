@@ -25,9 +25,8 @@ typedef struct {
 static OneWire oneWire(TEMP_DATA_PIN);
 static DallasTemperature tempSensor(&oneWire);
 static SensorValues sensorValues;
-
-DFRobot_PH phSensor;
-HCMotor HCMotor;
+static DFRobot_PH phSensor;
+static HCMotor HCMotor;
 
 void setup() {
     Serial.begin(9600);
@@ -68,7 +67,7 @@ void loop() {
     delay(5000);
 }
 
-SensorValues readSensorValues() {
+static SensorValues readSensorValues() {
     /* Read the temperature value from sensor. */
     tempSensor.requestTemperatures();
     float temperature = tempSensor.getTempCByIndex(0);
