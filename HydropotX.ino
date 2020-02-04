@@ -5,41 +5,14 @@
  *
  * arduino --upload HydropotX.ino --port /dev/ttyUSB* && stty -F /dev/ttyUSB* 9600 raw -clocal -echo && cat /dev/ttyUSB*
  *
- * calibration values:
- * y1 = 5.5, y2 = 7.4
- * x1 = 10.11, x2 = 3.51
- * m = 7.4 - 5.5 / 3.51 - 10.11 = -0.28
- * b = 5.5 - (-0.28 x 10.11) = 8.3
- *
  */
 
+#include "HydropotX.h"
 #include "DFRobot_PH.h"
 #include "HCMotor.h"
 #include <EEPROM.h>
 #include <OneWire.h>
 #include <DallasTemperature.h>
-
-#define PH_PIN A2
-#define PH_CONST_M -0.28 /* m = (y2 - y1) / (x2 - x1) */
-#define PH_CONST_B 8.3   /* b = y - mx */
-#define MOTOR1_PIN 2
-#define MOTOR2_PIN 3
-/* Hana      [USA]        PPM converion:   0.5  */
-/* Eutech    [EU]         PPM conversion:  0.64 */
-/* Tranchen  [Australia]  PPM conversion:  0.7  */
-#define PPM_CONV 0.5
-#define EC_RA 25      /* Resistance of the powering pins */
-#define EC_R1 1000    /* Must be greater than 300 ohms */
-#define EC_CONST 2.11 /* Constant for EC measurements */
-#define EC_PIN A0
-#define EC_GND A1
-#define EC_VCC A4
-/* Temperature compensation. */
-/* 0.019 is generally considered as the standard for plant nutrients. */
-#define TEMP_COMP 0.019
-#define TEMP_DATA_PIN 10
-#define TEMP_VCC_PIN 8
-#define TEMP_GND_PIN 9
 
 typedef struct {
     float ec;
