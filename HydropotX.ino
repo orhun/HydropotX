@@ -30,7 +30,7 @@
 #define PPM_CONV 0.5
 #define EC_RA 25      /* Resistance of the powering pins */
 #define EC_R1 1000    /* Must be greater than 300 ohms */
-#define EC_CONST 1.76 /* Constant for EC measurements */
+#define EC_CONST 2.11 /* Constant for EC measurements */
 #define EC_PIN A0
 #define EC_GND A1
 #define EC_VCC A4
