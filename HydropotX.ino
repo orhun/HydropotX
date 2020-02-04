@@ -85,15 +85,13 @@ void loop() {
     HCMotor.OnTime(1, 0);
     delay(10000);*/
     sensorValues = readSensorValues();
-    Serial.print("pH: ");
+    Serial.print("| ph: ");
     Serial.print(sensorValues.ph);
-    Serial.print(" EC: ");
+    Serial.print(" | EC: ");
     Serial.print(sensorValues.ec);
-    Serial.print(" Siemens ");
-    Serial.print(sensorValues.ppm);
-    Serial.print(" ppm ");
+    Serial.print(" | T: ");
     Serial.print(sensorValues.temp);
-    Serial.println(" *C ");
+    Serial.println(" |");
     delay(5000);
 }
 
