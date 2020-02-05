@@ -1,3 +1,4 @@
+#define START_MSG "HydropotX v1.0"
 /*
  * pH calibration values:
  * y1 = 5.5, y2 = 7.4
