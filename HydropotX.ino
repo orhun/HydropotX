@@ -58,7 +58,7 @@ void loop() {
     delay(10000);*/
     sensorValues = readSensorValues();
     if (firstValueRead) {
-        Serial.print("| ph: ");
+        Serial.print("| pH: ");
         Serial.print(sensorValues.ph);
         Serial.print(" | EC: ");
         Serial.print(sensorValues.ec);
