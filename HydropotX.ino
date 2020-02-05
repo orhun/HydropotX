@@ -38,7 +38,6 @@ void setup() {
     digitalWrite(TEMP_GND_PIN, LOW);
     digitalWrite(TEMP_VCC_PIN, HIGH);
     digitalWrite(EC_GND, LOW);
-    delay(500);
     tempSensor.begin();
     phSensor.begin();
     HCMotor.Init();
