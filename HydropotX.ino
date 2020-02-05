@@ -32,6 +32,7 @@ static bool firstValueRead = false;
 void setup() {
     Serial.begin(9600);
     Serial.println(START_MSG);
+    Serial.println("Reading the sensor values with a 5s interval...");
     pinMode(TEMP_GND_PIN, OUTPUT);
     pinMode(TEMP_VCC_PIN, OUTPUT);
     pinMode(EC_PIN, INPUT);
