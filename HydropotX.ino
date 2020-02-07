@@ -49,14 +49,14 @@ void setup() {
 }
 
 void loop() {
-    /*HCMotor.OnTime(0, 30);
-    delay(1000);
+    /*HCMotor.OnTime(0, 100);
+    delay(10000);
     HCMotor.OnTime(0, 0);
-    delay(1000);
-    HCMotor.OnTime(1, 40);
-    delay(1000);
+    delay(2000);
+    HCMotor.OnTime(1, 100);
+    delay(10000);
     HCMotor.OnTime(1, 0);
-    delay(10000);*/
+    delay(2000);*/
     sensorValues = readSensorValues();
     if (firstValueRead) {
         Serial.print("| pH: ");
