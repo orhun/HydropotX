@@ -1,8 +1,8 @@
-![Logo](https://user-images.githubusercontent.com/24392180/74221230-af802a00-4cc2-11ea-88dd-9b2fac1c6659.png)
-
-## HydropotX
-
-Automated and Self-contained Hydroponics System
+<p align="center">
+    <a href="https://github.com/orhun/HydropotX">
+        <img src="https://user-images.githubusercontent.com/24392180/74221230-af802a00-4cc2-11ea-88dd-9b2fac1c6659.png"></a>
+        <br>
+</p>
 
 ## Part List
 
