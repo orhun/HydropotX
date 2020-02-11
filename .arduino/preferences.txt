@@ -1,0 +1,16 @@
+board=nano
+custom_cpu=nano_atmega328old
+programmer=arduino:avrispmkii
+serial.databits=8
+serial.debug_rate=9600
+serial.line_ending=1
+serial.parity=N
+serial.port=/dev/ttyUSB0
+serial.port.file=ttyUSB0
+serial.port.iserial=null
+serial.stopbits=1s
+software=ARDUINO
+target_package=arduino
+target_platform=avr
+upload.using=bootloader
+upload.verify=true
