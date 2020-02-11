@@ -1,9 +1,9 @@
 /* HydropotX
  *
- * upload:  arduino --upload HydropotX.ino --port /dev/ttyUSB*
+ * upload:  arduino --upload *.ino --port /dev/ttyUSB*
  * monitor: stty -F /dev/ttyUSB* 9600 raw -clocal -echo && cat /dev/ttyUSB*
  *
- * arduino --upload HydropotX.ino --port /dev/ttyUSB* && stty -F /dev/ttyUSB* 9600 raw -clocal -echo && cat /dev/ttyUSB*
+ * arduino --upload *.ino --port /dev/ttyUSB* && stty -F /dev/ttyUSB* 9600 raw -clocal -echo && cat /dev/ttyUSB*
  *
  */
 
