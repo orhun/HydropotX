@@ -84,21 +84,60 @@ class Sensors {
             Serial.print(values.temp);
             Serial.println(" |");
         }
+
+        float getPh() {
+            return values.ph;
+        }
+
+        float getEc() {
+            return values.ec;
+        }
+};
+
+
+
+class Motors {
+    private:
+        HCMotor hcMotor;
+        enum Motor {
+            PH_MOTOR,
+            EC_MOTOR
+        };
+        void reset(Motor motor) {
+            hcMotor.OnTime(motor, 10);
+            delay(7500);
+            hcMotor.OnTime(motor, 0);
+            delay(500);
+        }
+    public:
+        void init() {
+            hcMotor.Init();
+            hcMotor.attach(PH_MOTOR, DCMOTOR, MOTOR1_PIN);
+            hcMotor.DutyCycle(PH_MOTOR, 10);
+            reset(PH_MOTOR);
+            hcMotor.attach(EC_MOTOR, DCMOTOR, MOTOR2_PIN);
+            hcMotor.DutyCycle(EC_MOTOR, 10);
+            reset(EC_MOTOR);
+        }
+
+        void start(Motor motor) {
+            hcMotor.OnTime(motor, 10);
+            delay(500);
+            hcMotor.OnTime(motor, 0);
+        }
+
 };
 
 static Sensors sensors;
-static HCMotor HCMotor;
+static Motors motors;
 
 void setup() {
     Serial.begin(9600);
     Serial.println(START_MSG);
-    Serial.println("Reading the sensor values with a 5s interval...");
+    Serial.println("Initializing...");
     sensors.init();
-    HCMotor.Init();
-    HCMotor.attach(0, DCMOTOR, MOTOR1_PIN);
-    HCMotor.attach(1, DCMOTOR, MOTOR2_PIN);
-    HCMotor.DutyCycle(0, 100);
-    HCMotor.DutyCycle(1, 100);
+    motors.init();
+    Serial.println("Reading the sensor values with a 5s interval...");
 }
 
 void loop() {
