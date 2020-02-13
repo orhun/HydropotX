@@ -1,4 +1,5 @@
 #define START_MSG "HydropotX v1.0"
+#define TICK_RATE 5000
 /*
  * pH calibration values:
  * y1 = 5.5, y2 = 7.4

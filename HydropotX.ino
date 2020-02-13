@@ -113,5 +113,5 @@ void loop() {
     if (sensors.read()) {
         sensors.print();
     }
-    delay(5000);
+    delay(TICK_RATE);
 }
