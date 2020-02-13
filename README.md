@@ -12,7 +12,9 @@
 
 ## Instructions
 
+
 Prepare the board
+    Calibrate
 
 Upload program
     Set arduino preferences
