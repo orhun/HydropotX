@@ -94,15 +94,14 @@ class Sensors {
         }
 };
 
-
+enum Motor {
+    PH_MOTOR,
+    EC_MOTOR
+};
 
 class Motors {
     private:
         HCMotor hcMotor;
-        enum Motor {
-            PH_MOTOR,
-            EC_MOTOR
-        };
         void reset(Motor motor) {
             hcMotor.OnTime(motor, 10);
             delay(7500);
@@ -110,6 +109,8 @@ class Motors {
             delay(500);
         }
     public:
+        int delayTime = 0;
+
         void init() {
             hcMotor.Init();
             hcMotor.attach(PH_MOTOR, DCMOTOR, MOTOR1_PIN);
@@ -120,12 +121,12 @@ class Motors {
             reset(EC_MOTOR);
         }
 
-        void start(Motor motor) {
+        bool start(Motor motor) {
             hcMotor.OnTime(motor, 10);
             delay(500);
             hcMotor.OnTime(motor, 0);
+            return true;
         }
-
 };
 
 static Sensors sensors;
@@ -141,16 +142,20 @@ void setup() {
 }
 
 void loop() {
-    /*HCMotor.OnTime(0, 100);
-    delay(10000);
-    HCMotor.OnTime(0, 0);
-    delay(2000);
-    HCMotor.OnTime(1, 100);
-    delay(10000);
-    HCMotor.OnTime(1, 0);
-    delay(2000);*/
     if (sensors.read()) {
         sensors.print();
+        if (motors.delayTime <= 0) {
+            if (sensors.getEc() < EC_VALUE) {
+                motors.start(EC_MOTOR);
+            }
+            if (sensors.getPh() > PH_VALUE) {
+                motors.start(PH_MOTOR);
+            }
+            motors.delayTime = MOTOR_DELAY;
+        }
+    }
+    if (motors.delayTime > 0) {
+        motors.delayTime -= TICK_RATE / 1000;
     }
     delay(TICK_RATE);
 }
