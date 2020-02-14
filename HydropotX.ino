@@ -110,7 +110,6 @@ class Motors {
         }
     public:
         int delayTime = 0;
-
         void init() {
             hcMotor.Init();
             hcMotor.attach(PH_MOTOR, DCMOTOR, MOTOR1_PIN);
@@ -146,9 +145,19 @@ void loop() {
         sensors.print();
         if (motors.delayTime <= 0) {
             if (sensors.getEc() < EC_VALUE) {
+                Serial.print("|   +EC    |   ");
+                Serial.print(sensors.getEc());
+                Serial.print("   <   ");
+                Serial.print(EC_VALUE);
+                Serial.println("   |");
                 motors.start(EC_MOTOR);
             }
             if (sensors.getPh() > PH_VALUE) {
+                Serial.print("|   -pH    |   ");
+                Serial.print(sensors.getPh());
+                Serial.print("   >   ");
+                Serial.print(PH_VALUE);
+                Serial.println("   |");
                 motors.start(PH_MOTOR);
             }
             motors.delayTime = MOTOR_DELAY;
