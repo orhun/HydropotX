@@ -13,6 +13,7 @@
 #include <EEPROM.h>
 #include <OneWire.h>
 #include <DallasTemperature.h>
+#include <SoftwareSerial.h>
 
 class Sensors {
     private:
@@ -92,6 +93,10 @@ class Sensors {
         float getEc() {
             return values.ec;
         }
+
+        float getTemp() {
+            return values.temp;
+        }
 };
 
 enum Motor {
@@ -130,9 +135,11 @@ class Motors {
 
 static Sensors sensors;
 static Motors motors;
+static SoftwareSerial btSerial(5, 6);
 
 void setup() {
     Serial.begin(9600);
+    btSerial.begin(9600);
     Serial.println(START_MSG);
     Serial.println("Initializing...");
     sensors.init();
@@ -143,6 +150,13 @@ void setup() {
 void loop() {
     if (sensors.read()) {
         sensors.print();
+        btSerial.print("| pH: ");
+        btSerial.print(sensors.getPh());
+        btSerial.print(" | EC: ");
+        btSerial.print(sensors.getEc());
+        btSerial.print(" | T: ");
+        btSerial.print(sensors.getTemp());
+        btSerial.println(" |");
         if (motors.delayTime <= 0) {
             if (sensors.getEc() < EC_VALUE) {
                 Serial.print("|   +EC    |   ");
