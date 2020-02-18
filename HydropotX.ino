@@ -3,8 +3,6 @@
  * upload:  arduino --upload *.ino --port /dev/ttyUSB*
  * monitor: stty -F /dev/ttyUSB* 9600 raw -clocal -echo && cat /dev/ttyUSB*
  *
- * arduino --upload *.ino --port /dev/ttyUSB* && stty -F /dev/ttyUSB* 9600 raw -clocal -echo && cat /dev/ttyUSB*
- *
  */
 
 #include "HydropotX.h"
@@ -59,7 +57,8 @@ class Sensors {
             values.temp = tempSensor.getTempCByIndex(0);
             /* Read the pH value from sensor. */
             float voltage = analogRead(PH_PIN) / 1024.0 * 5000;
-            values.ph = phSensor.readPH(voltage, values.temp) * PH_CONST_M + PH_CONST_B;
+            values.ph = phSensor.readPH(voltage, values.temp)
+                * PH_CONST_M + PH_CONST_B;
             phSensor.calibration(voltage, values.temp);
             /* Estimate the resistance of the liquid. */
             pinMode(EC_VCC, OUTPUT);
@@ -72,8 +71,10 @@ class Sensors {
             pinMode(EC_GND, INPUT);
             /* Convert raw values to EC and compensate for the temperature. */
             float voltageDrop = (5 * ecRaw) / 1024.0;
-            values.rc = ((voltageDrop * (EC_R1 + EC_RA)) / (5 - voltageDrop)) - EC_RA;
-            values.ec  =  (1000 / (values.rc * EC_CONST)) / (1 + TEMP_COMP * (values.temp - 25.0));
+            values.rc = ((voltageDrop * (EC_R1 + EC_RA))
+                / (5 - voltageDrop)) - EC_RA;
+            values.ec  =  (1000 / (values.rc * EC_CONST))
+                / (1 + TEMP_COMP * (values.temp - 25.0));
             values.ppm = values.ec * PPM_CONV * 1000;
             if (!firstValueRead) {
                 firstValueRead = true;
