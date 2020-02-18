@@ -119,10 +119,10 @@ class Motors {
             hcMotor.Init();
             hcMotor.attach(PH_MOTOR, DCMOTOR, MOTOR1_PIN);
             hcMotor.DutyCycle(PH_MOTOR, 10);
-            reset(PH_MOTOR);
+            //reset(PH_MOTOR);
             hcMotor.attach(EC_MOTOR, DCMOTOR, MOTOR2_PIN);
             hcMotor.DutyCycle(EC_MOTOR, 10);
-            reset(EC_MOTOR);
+            //reset(EC_MOTOR);
         }
 
         bool start(Motor motor) {
