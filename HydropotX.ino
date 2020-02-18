@@ -15,6 +15,12 @@
 #include <DallasTemperature.h>
 #include <SoftwareSerial.h>
 
+static SoftwareSerial btSerial(5, 6);
+enum Motor {
+    PH_MOTOR,
+    EC_MOTOR
+};
+
 class Sensors {
     private:
         typedef struct {
@@ -84,6 +90,13 @@ class Sensors {
             Serial.print(" | T: ");
             Serial.print(values.temp);
             Serial.println(" |");
+            btSerial.print("| pH: ");
+            btSerial.print(values.ph);
+            btSerial.print(" | EC: ");
+            btSerial.print(values.ec);
+            btSerial.print(" | T: ");
+            btSerial.print(values.temp);
+            btSerial.println(" |");
         }
 
         float getPh() {
@@ -97,11 +110,6 @@ class Sensors {
         float getTemp() {
             return values.temp;
         }
-};
-
-enum Motor {
-    PH_MOTOR,
-    EC_MOTOR
 };
 
 class Motors {
@@ -135,7 +143,6 @@ class Motors {
 
 static Sensors sensors;
 static Motors motors;
-static SoftwareSerial btSerial(5, 6);
 
 void setup() {
     Serial.begin(9600);
@@ -150,13 +157,6 @@ void setup() {
 void loop() {
     if (sensors.read()) {
         sensors.print();
-        btSerial.print("| pH: ");
-        btSerial.print(sensors.getPh());
-        btSerial.print(" | EC: ");
-        btSerial.print(sensors.getEc());
-        btSerial.print(" | T: ");
-        btSerial.print(sensors.getTemp());
-        btSerial.println(" |");
         if (motors.delayTime <= 0) {
             if (sensors.getEc() < EC_VALUE) {
                 Serial.print("|   +EC    |   ");
