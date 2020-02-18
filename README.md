@@ -21,7 +21,7 @@
   * 1x 2.2k ohm
   * 1x 4.7k ohm
 
-### Other
+### Other Parts
 
 * 1x seedling (e.g: strawberry)
 * 1x liquid fertilizer (100ml+)
