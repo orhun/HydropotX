@@ -35,7 +35,9 @@
 #define EC_GND A1
 #define EC_VCC A4
 #define TEMP_DATA_PIN 10
-#define TEMP_VCC_PIN 8
 #define TEMP_GND_PIN 9
-#define MOTOR1_PIN 2
+#define TEMP_VCC_PIN 8
+#define BT_TX_PIN 6
+#define BT_RX_PIN 5
 #define MOTOR2_PIN 3
+#define MOTOR1_PIN 2

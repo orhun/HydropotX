@@ -15,7 +15,7 @@
 #include <DallasTemperature.h>
 #include <SoftwareSerial.h>
 
-static SoftwareSerial btSerial(5, 6);
+static SoftwareSerial btSerial(BT_RX_PIN, BT_TX_PIN);
 enum Motor {
     PH_MOTOR,
     EC_MOTOR
