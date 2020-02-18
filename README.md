@@ -12,11 +12,14 @@
 * 1x Tiny breadboard (46mm x 36mm)
 * 2x Peristaltic Liquid Pump (5v)
 * 2x IRF520 MOSFET
+* 1x HC-05 Bluetooth Module
 * 1x DS18B20 Waterproof Digital Temperature Sensor
-* 1x DFRobot pH Sensor
-* 1x EC/TDS Sensor
-* 1x 1K
-* 1x 4.7K
+* 1x [DFRobot pH Sensor](https://www.dfrobot.com/product-1025.html)
+* 1x [EC/TDS Sensor](https://hackaday.io/project/7008-fly-wars-a-hackers-solution-to-world-hunger/log/24646-three-dollar-ec-ppm-meter-arduino)
+* 4x resistor
+  * 2x 1k ohm
+  * 1x 2.2k ohm
+  * 1x 4.7k ohm
 
 ### Other
 
