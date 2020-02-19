@@ -24,6 +24,7 @@
 ### Other Parts
 
 * 1x seedling (e.g: strawberry)
+* 1x drinking water (300ml+, pH: ~7.8)
 * 1x liquid fertilizer (100ml+)
 * 1x plastic cup (180ml-6oz)
 * 4x translucent silicone tube (4mm)
