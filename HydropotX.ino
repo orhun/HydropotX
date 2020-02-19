@@ -15,8 +15,8 @@
 
 static SoftwareSerial btSerial(BT_RX_PIN, BT_TX_PIN);
 enum Motor {
-    PH_MOTOR,
-    EC_MOTOR
+    NUTRIENT_MOTOR,
+    CIRCULATION_MOTOR
 };
 
 class Sensors {
@@ -116,29 +116,19 @@ class Sensors {
 class Motors {
     private:
         HCMotor hcMotor;
-        void reset(Motor motor) {
-            hcMotor.OnTime(motor, 10);
-            delay(7500);
-            hcMotor.OnTime(motor, 0);
-            delay(500);
-        }
     public:
         int delayTime = 0;
         void init() {
             hcMotor.Init();
-            hcMotor.attach(PH_MOTOR, DCMOTOR, MOTOR1_PIN);
-            hcMotor.DutyCycle(PH_MOTOR, 10);
-            //reset(PH_MOTOR);
-            hcMotor.attach(EC_MOTOR, DCMOTOR, MOTOR2_PIN);
-            hcMotor.DutyCycle(EC_MOTOR, 10);
-            //reset(EC_MOTOR);
+            hcMotor.attach(NUTRIENT_MOTOR, DCMOTOR, MOTOR1_PIN);
+            hcMotor.DutyCycle(NUTRIENT_MOTOR, 10);
+            hcMotor.attach(CIRCULATION_MOTOR, DCMOTOR, MOTOR2_PIN);
+            hcMotor.DutyCycle(CIRCULATION_MOTOR, 10);
         }
-
-        bool start(Motor motor) {
+        void start(Motor motor, int interval) {
             hcMotor.OnTime(motor, 10);
-            delay(500);
+            delay(interval);
             hcMotor.OnTime(motor, 0);
-            return true;
         }
 };
 
@@ -159,23 +149,13 @@ void loop() {
     if (sensors.read()) {
         sensors.print();
         if (motors.delayTime <= 0) {
-            if (sensors.getEc() < EC_VALUE) {
-                Serial.print("|   +EC    |   ");
-                Serial.print(sensors.getEc());
-                Serial.print("   <   ");
-                Serial.print(EC_VALUE);
-                Serial.println("   |");
-                motors.start(EC_MOTOR);
-            }
-            if (sensors.getPh() > PH_VALUE) {
-                Serial.print("|   -pH    |   ");
-                Serial.print(sensors.getPh());
-                Serial.print("   >   ");
-                Serial.print(PH_VALUE);
-                Serial.println("   |");
-                motors.start(PH_MOTOR);
-            }
             motors.delayTime = MOTOR_DELAY;
+            Serial.println("| RUNNING THE CIRCULATION MOTOR  |");
+            motors.start(CIRCULATION_MOTOR, 10 * 1000);
+            if (sensors.getEc() < EC_VALUE && sensors.getPh() > PH_VALUE) {
+                Serial.println("|   RUNNING THE NUTRIENT MOTOR   |");
+                motors.start(NUTRIENT_MOTOR, 7500);
+            }
         }
     }
     if (motors.delayTime > 0) {
