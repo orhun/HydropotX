@@ -1,8 +1,8 @@
 #define START_MSG "HydropotX v1.0"
 #define TICK_RATE 5 * 1000
-#define MOTOR_DELAY 20 * 60
+#define MOTOR_DELAY 60 * 60
 #define PH_VALUE 7.8
-#define EC_VALUE 0.2
+#define EC_VALUE 0.4
 /*
  * pH calibration values:
  * y1 = 5.5, y2 = 7.4
