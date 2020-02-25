@@ -4,6 +4,11 @@
         <br>
 </p>
 
+```
+Hydroponics is a subset of hydroculture, which is a method of growing plants without soil, by instead using mineral nutrient solutions in a water solvent. Terrestrial plants may be grown with only their roots exposed to the nutritious liquid, or the roots may be physically supported by an inert medium such as perlite, gravel.
+```
+([Wikipedia](https://en.wikipedia.org/wiki/Hydroponics))
+
 ## Part List
 
 ### Electronic Parts
