@@ -4,16 +4,8 @@ import android.app.Activity
 import android.bluetooth.BluetoothAdapter
 import android.content.Intent
 import android.os.Bundle
-import android.bluetooth.BluetoothDevice
-import android.content.pm.PackageManager
-import android.os.Handler
 import android.util.Log
 import android.widget.Toast
-import android.os.Build
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-
-
 
 
 class MainActivity : Activity() {
@@ -29,14 +21,16 @@ class MainActivity : Activity() {
         setContentView(R.layout.activity_main)
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
         if (bluetoothAdapter == null) {
-
+            Toast.makeText(this,
+                getString(R.string.bt_device_error), Toast.LENGTH_LONG).show()
+            finish()
         } else if (!bluetoothAdapter!!.isEnabled) {
-            val btIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
-            startActivityForResult(btIntent, REQUEST_ENABLE_BT)
+            val btEnableIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+            startActivityForResult(btEnableIntent, REQUEST_ENABLE_BT)
         } else {
             val pairedDevices = bluetoothAdapter!!.bondedDevices
             if (pairedDevices.size > 0) {
-                for (device: BluetoothDevice in pairedDevices) {
+                for (device in pairedDevices) {
                     Log.d(device.address, device.name)
                 }
             }
@@ -54,9 +48,7 @@ class MainActivity : Activity() {
                         Toast.LENGTH_SHORT).show()
                     finish()
                 }
-
         }
-
     }
 
 }

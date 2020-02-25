@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">HydropotX</string>
-
+    <string name="bt_device_error">Bluetooth adapter not found.</string>
     <string name="bt_permission_error">Bluetooth permission error.</string>
 </resources>
