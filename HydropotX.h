@@ -1,6 +1,6 @@
 #define START_MSG "HydropotX v1.0"
 #define TICK_RATE 5 * 1000
-#define MOTOR_DELAY 60 * 60
+#define MOTOR_DELAY 4 * 60 * 60
 #define PH_VALUE 7.8
 #define EC_VALUE 0.4
 /*
