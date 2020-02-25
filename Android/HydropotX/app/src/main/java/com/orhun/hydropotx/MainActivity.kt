@@ -8,7 +8,6 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
-import android.R
 import android.app.Dialog
 import android.content.Context
 import android.view.Window.FEATURE_NO_TITLE
@@ -60,7 +59,7 @@ class MainActivity : Activity() {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             val btDialog = Dialog(
                 this,
-                R.style.Theme_Black_NoTitleBar_Fullscreen
+                android.R.style.Theme_Black_NoTitleBar_Fullscreen
             )
             btDialog.window?.requestFeature(FEATURE_NO_TITLE)
             btDialog.setContentView(inflater.inflate(R.layout.layout_devices, null))
