@@ -91,13 +91,11 @@ class Sensors {
             Serial.print(" | T: ");
             Serial.print(values.temp);
             Serial.println(" |");
-            btSerial.print("| pH: ");
             btSerial.print(values.ph);
-            btSerial.print(" | EC: ");
+            btSerial.print(" ");
             btSerial.print(values.ec);
-            btSerial.print(" | T: ");
+            btSerial.print(" ");
             btSerial.print(values.temp);
-            btSerial.println(" |");
         }
 
         float getPh() {
