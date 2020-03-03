@@ -49,6 +49,15 @@ class MainActivity : Activity() {
                 for (device in pairedDevices) {
                     deviceList.add(BluetoothDevice(device.name, device.address))
                 }
+                for (device in pairedDevices) {
+                    deviceList.add(BluetoothDevice(device.name, device.address))
+                }
+                for (device in pairedDevices) {
+                    deviceList.add(BluetoothDevice(device.name, device.address))
+                }
+                for (device in pairedDevices) {
+                    deviceList.add(BluetoothDevice(device.name, device.address))
+                }
                 val btDialog = Dialog(
                     this,
                     android.R.style.Theme_Dialog
