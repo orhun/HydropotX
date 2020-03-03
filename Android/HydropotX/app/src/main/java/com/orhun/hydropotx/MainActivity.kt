@@ -9,14 +9,8 @@ import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import android.app.Dialog
-import android.content.Context
 import android.view.Window.FEATURE_NO_TITLE
-import android.content.Context.LAYOUT_INFLATER_SERVICE
-import androidx.core.content.ContextCompat.getSystemService
-import android.view.LayoutInflater
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import android.view.Window
-
+import android.widget.ListView
 
 class MainActivity : Activity() {
 
@@ -28,6 +22,7 @@ class MainActivity : Activity() {
         private const val TARGET_DEVICE_NAME = "hydroponics"
         private const val TARGET_DEVICE_ADDR = "00:13:EF:00:B2:38"
     }
+    data class BluetoothDevice(val name: String, val address: String)
 
     private fun initViews() {
         btnBt = findViewById(R.id.btnBt)
@@ -50,21 +45,24 @@ class MainActivity : Activity() {
 
             val pairedDevices = bluetoothAdapter!!.bondedDevices
             if (pairedDevices.size > 0) {
+                val deviceList = arrayListOf<BluetoothDevice>()
                 for (device in pairedDevices) {
-                    Log.d(TAG, String.format("%s %s", device.name, device.address))
+                    deviceList.add(BluetoothDevice(device.name, device.address))
                 }
+                val btDialog = Dialog(
+                    this,
+                    android.R.style.Theme_Dialog
+                )
+                btDialog.window?.requestFeature(FEATURE_NO_TITLE)
+                btDialog.setContentView(View.inflate(this,
+                    R.layout.layout_devices, null))
+                btDialog.findViewById<ListView>(R.id.btDeviceList).adapter =
+                    DeviceAdapter(this, deviceList)
+                btDialog.show()
+
+            } else {
+                TODO("not paired")
             }
-
-            val inflater = applicationContext
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            val btDialog = Dialog(
-                this,
-                android.R.style.Theme_Black_NoTitleBar_Fullscreen
-            )
-            btDialog.window?.requestFeature(FEATURE_NO_TITLE)
-            btDialog.setContentView(inflater.inflate(R.layout.layout_devices, null))
-
-            btDialog.show()
         }
     }
 
