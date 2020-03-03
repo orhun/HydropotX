@@ -34,9 +34,9 @@ Hydroponics is a subset of hydroculture, which is a method of growing plants wit
 * 1x plastic cup (180ml-6oz)
 * 4x translucent silicone tube (4mm)
 * 3x container for layers
+* enough growstones/clay pebbles
 
 ## Instructions
-
 
 Prepare the board
     Calibrate
