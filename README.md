@@ -13,13 +13,10 @@
 
 ![1](https://user-images.githubusercontent.com/24392180/209226037-f3459649-e11c-4b92-8dcb-3504095cc12e.jpg)
 
-![2](https://user-images.githubusercontent.com/24392180/209227645-80645cbe-4175-40da-8eb0-c76e945aa2a0.jpg)
-
-![3](https://user-images.githubusercontent.com/24392180/209227637-66b3cafa-b693-466b-94a6-f661386482e1.jpg)
+| ![2](https://user-images.githubusercontent.com/24392180/209227645-80645cbe-4175-40da-8eb0-c76e945aa2a0.jpg) | ![3](https://user-images.githubusercontent.com/24392180/209227637-66b3cafa-b693-466b-94a6-f661386482e1.jpg) |
+|-------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|
 
 ![4](https://user-images.githubusercontent.com/24392180/209227744-d993c1d4-d25b-4eae-aa9e-e726b4d7a08a.jpeg)
-
-![5](https://user-images.githubusercontent.com/24392180/209228099-b7cde99c-66f1-4916-8b6f-cd969d6f4ca4.jpg)
 
 ## Part List
 
